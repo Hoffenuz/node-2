@@ -18,7 +18,7 @@ const db = mysql.createConnection({
 
 // =================== TEST =====================
 app.get('/', (req, res) => {
-    res.send('✅ Server ishlayapti!');
+    res.send('Server ishlayapti!');
 });
 
 // =============== ALOQA: POST /aloqa ================
@@ -30,7 +30,7 @@ app.post('/aloqa', (req, res) => {
             console.error('❌ Xabar yozishda xatolik:', err);
             return res.status(500).json({ message: 'Xabar bazaga yozilmadi' });
         }
-       res.status(200).json({ success: true, message: '✅ Xabar muvaffaqiyatli yuborildi' });
+       res.status(200).json({ success: true, message: 'Xabar muvaffaqiyatli yuborildi' });
 
     });
 });
