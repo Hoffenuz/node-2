@@ -16,63 +16,62 @@ const db = mysql.createConnection({
     port: 3306
 });
 
-// Test endpoint
+// =================== TEST =====================
 app.get('/', (req, res) => {
-    res.send('Server ishlayapti brat !');
+    res.send('✅ Server ishlayapti!');
 });
 
-
-// =======================================
-// O‘QUVCHI — POST /register
-// =======================================
-app.post('/register', (req, res) => {
-    const { ism, yosh, guruh, oqituvchi_id } = req.body;
-    const sql = "INSERT INTO oquvchi (ism, yosh, guruh, oqituvchi_id) VALUES (?, ?, ?, ?)";
-    db.query(sql, [ism, yosh, guruh, oqituvchi_id], (err, result) => {
-        if (err) {
-            console.error('O‘quvchi yozishda xatolik:', err);
-            return res.status(500).json({ message: 'Bazaga yozishda xatolik' });
-        }
-        res.json({ message: 'O‘quvchi muvaffaqiyatli yozildi' });
-    });
-});
-
-
-// =======================================
-// ALOQA — GET /aloqa
-// =======================================
-app.get('/aloqa', (req, res) => {
-    const sql = "SELECT * FROM aloqa ORDER BY yuborilgan_vaqt DESC";
-    db.query(sql, (err, results) => {
-        if (err) {
-            console.error('Xabarlarni olishda xatolik:', err);
-            return res.status(500).json({ message: 'Bazadan ma\'lumot olishda xatolik' });
-        }
-        res.json(results);
-    });
-});
-
-
-// =======================================
-// ALOQA — POST /aloqa
-// =======================================
+// =============== ALOQA: POST /aloqa ================
 app.post('/aloqa', (req, res) => {
     const { ism, email, xabar } = req.body;
     const sql = "INSERT INTO aloqa (ism, email, xabar, yuborilgan_vaqt) VALUES (?, ?, ?, NOW())";
     db.query(sql, [ism, email, xabar], (err, result) => {
         if (err) {
-            console.error('Xabar yozishda xatolik:', err);
+            console.error('❌ Xabar yozishda xatolik:', err);
             return res.status(500).json({ message: 'Xabar bazaga yozilmadi' });
         }
-        res.json({ message: 'Xabar muvaffaqiyatli yuborildi' });
+        res.json({ message: '✅ Xabar muvaffaqiyatli yuborildi' });
     });
 });
 
+// =============== ALOQA: GET /aloqa ================
+app.get('/aloqa', (req, res) => {
+    const sql = "SELECT * FROM aloqa ORDER BY yuborilgan_vaqt DESC";
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('❌ Xabarlarni olishda xatolik:', err);
+            return res.status(500).json({ message: 'Ma\'lumot olishda xatolik' });
+        }
+        res.json(results);
+    });
+});
 
-// =======================================
-// SERVERNI ISHGA TUSHIRISH
-// =======================================
+// =========== O‘QITUVCHI: GET /oqituvchilar ============
+app.get('/oqituvchilar', (req, res) => {
+    const sql = "SELECT * FROM oqituvchi";
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('❌ O‘qituvchilarni olishda xatolik:', err);
+            return res.status(500).json({ message: 'O‘qituvchilarni olishda xatolik' });
+        }
+        res.json(results);
+    });
+});
+
+// =========== AVTOMOBIL: GET /avtomobillar ============
+app.get('/avtomobillar', (req, res) => {
+    const sql = "SELECT * FROM avtomobil";
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('❌ Avtomobillarni olishda xatolik:', err);
+            return res.status(500).json({ message: 'Avtomobillarni olishda xatolik' });
+        }
+        res.json(results);
+    });
+});
+
+// =========== SERVERNI ISHGA TUSHURISH ============
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`✅ Server ${PORT}-portda ishga tushdi`);
+    console.log(`🚀 Server ${PORT}-portda ishga tushdi`);
 });
