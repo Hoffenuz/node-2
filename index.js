@@ -47,7 +47,7 @@ app.get('/aloqa', (req, res) => {
 });
 
 // =========== O‘QITUVCHI: GET /oqituvchilar ============
-app.get('/oqituvchilar', (req, res) => {
+app.get('/oqituvchi', (req, res) => {
     const sql = "SELECT * FROM oqituvchi";
     db.query(sql, (err, results) => {
         if (err) {
@@ -59,7 +59,7 @@ app.get('/oqituvchilar', (req, res) => {
 });
 
 // =========== AVTOMOBIL: GET /avtomobillar ============
-app.get('/avtomobillar', (req, res) => {
+app.get('/avtomobil', (req, res) => {
     const sql = "SELECT * FROM avtomobil";
     db.query(sql, (err, results) => {
         if (err) {
