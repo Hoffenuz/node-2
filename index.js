@@ -27,7 +27,7 @@ app.post('/aloqa', (req, res) => {
     const sql = "INSERT INTO aloqa (ism, email, xabar, yuborilgan_vaqt) VALUES (?, ?, ?, NOW())";
     db.query(sql, [ism, email, xabar], (err, result) => {
         if (err) {
-            console.error('❌ Xabar yozishda xatolik:', err);
+            console.error('Xabar yozishda xatolik:', err);
             return res.status(500).json({ message: 'Xabar bazaga yozilmadi' });
         }
        res.status(200).json({ success: true, message: 'Xabar muvaffaqiyatli yuborildi' });
